@@ -59,12 +59,10 @@ jobs:
           cd ..
 
           # setup kb-sdk
-          git clone https://github.com/kbase/kb_sdk
-          cd kb_sdk
-
-          KBSDK_DIR=`pwd`
-          make bin
-          export kb-sdk=$KBSDK_DIR/bin
+          mkdir -p $(pwd)/bin
+          docker run kbase/kb-sdk genscript > $(pwd)/bin/kb-sdk
+          chmod 755 $(pwd)/bin/kb-sdk
+          export PATH=$(pwd)/bin:$PATH
 
           # install catalog dependencies
           cd $HOMEDIR
