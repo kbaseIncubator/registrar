@@ -45,6 +45,8 @@ jobs:
 
       - name: Install dependencies and set up test config
         shell: bash
+        env:
+          NMS_ADMIN_TOKEN: ${{secrets.NMS_ADMIN_TOKEN}}
         run: |
 
           # test mongo connection
