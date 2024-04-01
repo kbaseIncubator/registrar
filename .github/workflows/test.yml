@@ -73,7 +73,7 @@ jobs:
 
           # setup test config
           cp -n test/test.cfg.example test/test.cfg
-          sed -i 's/^nms-admin-toke.*/nms-admin-token = '$NMS_ADMIN_TOKEN'/' test/test.cfg
+          sed -i "s#^nms-admin-token.*#nms-admin-token=$NMS_ADMIN_TOKEN#" test/test.cfg
 
       - name: Run tests
         shell: bash
