@@ -1,27 +1,61 @@
 name: Debugging with SSH
+
 on: push
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v1
+      - uses: actions/checkout@v2  # It's recommended to use the latest action version
 
-     - name: Try Build
-       run: ./not-exist-file.sh it bloke build
+      - name: Try Build
+        run: ./not-exist-file.sh || echo "Build script not found, build step failed, proceeding to SSH setup for debugging..."
 
-     - name: Start SSH via Ngrok
-       if: ${{ failure() }}
-       run: curl -sL https://gist.githubusercontent.com/retyui/7115bb6acf151351a143ec8f96a7c561/raw/7099b9db76729dc5761da72aa8525f632d8875c9/debug-github-actions.sh | bash
-       env:
-        # After sign up on the https://ngrok.com/
-        # You can find this token here: https://dashboard.ngrok.com/get-started/setup
-        NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+      - name: Start SSH via Ngrok
+        if: ${{ failure() }}
+        run: |
+          # The script content goes here, starting with the shebang line. For example:
+          #!/bin/bash
 
+          if [[ -z "$NGROK_TOKEN" ]]; then
+            echo "Please set 'NGROK_TOKEN'"
+            exit 2
+          fi
 
-        # This password you will use when authorizing via SSH 
-        USER_PASS: ${{ secrets.USER_PASS }}
+          if [[ -z "$USER_PASS" ]]; then
+            echo "Please set 'USER_PASS' for user: $USER"
+            exit 3
+          fi
 
+          echo "### Install ngrok ###"
+          wget -q https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+          sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
+          sudo chmod +x /usr/local/bin/ngrok
 
-     - name: Don't kill instace
-       if: ${{ failure() }}
-       run: sleep 1h 
+          echo "### Update user: $USER password ###"
+          echo -e "$USER_PASS\n$USER_PASS" | sudo passwd "$USER"
+
+          echo "### Start ngrok proxy for 22 port ###"
+          rm -f .ngrok.log
+          /usr/local/bin/ngrok authtoken "$NGROK_TOKEN"
+          /usr/local/bin/ngrok tcp 22 --log ".ngrok.log" &
+
+          sleep 10
+          HAS_ERRORS=$(grep "command failed" < .ngrok.log)
+
+          if [[ -z "$HAS_ERRORS" ]]; then
+            echo ""
+            echo "=========================================="
+            echo "To connect: $(grep -o -E "tcp://(.+)" < .ngrok.log | sed "s/tcp:\/\//ssh $USER@/" | sed "s/:/ -p /")"
+            echo "=========================================="
+          else
+            echo "$HAS_ERRORS"
+            exit 4
+          fi
+        env:
+          NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+          USER_PASS: ${{ secrets.USER_PASS }}
+
+      - name: Don't kill instance
+        if: ${{ failure() }}
+        run: sleep 1h
