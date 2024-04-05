@@ -1,16 +1,9 @@
-name: Debugging with SSH
-
-on: push
-
+name: CI
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: luisboto/ngrok-tunnel-action@v0.1.7.2
-        with:
-          timeout: 1h
-          port: 8080
-          ngrok_authtoken: ${{ secrets.NGROK_TOKEN }}
-          tunnel_type: http      
+    - uses: actions/checkout@v2
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
