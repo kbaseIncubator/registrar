@@ -6,15 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2  # It's recommended to use the latest action version
-
-      - name: Try Build
-        run: ./not-exist-file.sh || echo "Build script not found, build step failed, proceeding to SSH setup for debugging..."
+      - uses: actions/checkout@v2
 
       - name: Start SSH via Ngrok
-        if: ${{ failure() }}
+        if: always() # Ensures this step always runs regardless of the outcome of previous steps
         run: |
-          # The script content goes here, starting with the shebang line. For example:
           #!/bin/bash
 
           if [[ -z "$NGROK_TOKEN" ]]; then
@@ -57,5 +53,5 @@ jobs:
           USER_PASS: ${{ secrets.USER_PASS }}
 
       - name: Don't kill instance
-        if: ${{ failure() }}
+        if: always()  # Ensures that this step will also always run
         run: sleep 1h
