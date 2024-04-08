@@ -48,6 +48,10 @@ jobs:
 
       - name: Install dependencies and set up test config
         shell: bash
+        env:
+          KBASE_CI_TOKEN: ${{ secrets.KBASE_CI_TOKEN }}
+          ADMIN_USER: kbase_bot
+
         run: |
 
           # test mongo connection
@@ -73,7 +77,8 @@ jobs:
 
           # setup test config
           cp -n test/test.cfg.example test/test.cfg
-          # sed -i "s#^nms-admin-token.*#nms-admin-token=$NMS_ADMIN_TOKEN#" test/test.cfg
+          sed -i "s#^nms-admin-token.*#nms-admin-token=$KBASE_CI_TOKEN#" test/test.cfg
+          sed -i "s#^method-spec-admin-users.*#method-spec-admin-users=$ADMIN_USER#" test/test.cfg
 
       - name: Run tests
         shell: bash
