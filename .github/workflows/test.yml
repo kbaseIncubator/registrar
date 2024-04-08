@@ -14,9 +14,6 @@ on:
       - master
       - develop
 
-env:
-  NMS_ADMIN_TOKEN: "o0xBDxPBVpqmezRtuDf4gdFYUIlFReH3kV1BOx75taCqzMvsvNnIDHzLITFTvGhNBzOT/hG/eEVDiKx/bnFoq0HJWsKYeKahOsiMlFavIR5jTIdMLq2zbZDkxV/+e0HoRRArWj53NV9wx0pWTv3DYxqbzPR1uu5letxdWnY3DQXggspcnJuAVYGn6LtgNM7MV+h3jdHe/E61LkwMff8KwpoBF+64AKbsZv1ddcFo0gbo9Z9CjLeBq4le2TwziLeuUYV885mPsRCvhToRMzpeVlbiNkzf7w5oh5g3FFsPOOYFeu22a+RrmKoM0hv9/pTTYG0G8/ylzOMIKWJvVrOJYptRvyQKmpmdcN7/CPYIQkf6ZBp0rP6G30Q2xt49+ST40ko1L0jhL42FfwXSmuNjklRMZAjpMNRZM2fIazEhDw3ND9l4T6HZnIwr/SQvKCs4rYBjqmSLo/dMISiFDLjWpMor5ew9fpZSLwJcPglGT0Anh4OIZUY2JGlO4TuOkq3m5kvXjjKLBc3Domd10c+DLfkldwwt6uqShsDECqFwSMf/liPEtLfi+03djrWvP26QeiEKL93ujAMS4oXAYxdquOy2Ib9ihd3XWTJzYc4s1H7furYqAbQDAhU0Dx3nvcyEsu5djdRAFe0eKUdjdAqsMAxe84h/EHZHrlE+KOOZo8s="
-
 jobs:
   catalog_tests:
     runs-on: ubuntu-latest
