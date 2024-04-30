@@ -124,8 +124,8 @@ class Registrar:
             # perhaps make this a self attr?
             module_name_lc = self.get_required_field_as_string(self.kb_yaml,
                                                                'module-name').strip().lower()
-            self.image_name = self.docker_registry_host + '/kbase:' + module_name_lc + '.' + str(
-                git_commit_hash)
+            # self.image_name = self.docker_registry_host + '/kbase:' + module_name_lc + '.' + str(git_commit_hash)
+            self.image_name = str(git_commit_hash)
             ref_data_folder = None
             ref_data_ver = None
             compilation_report = None
@@ -252,7 +252,7 @@ class Registrar:
         with codecs.open(os.path.join(basedir, yaml_filename), 'r', "utf-8",
                          errors='ignore') as kb_yaml_file:
             kb_yaml_string = kb_yaml_file.read()
-        self.kb_yaml = yaml.load(kb_yaml_string)
+        self.kb_yaml = yaml.load(kb_yaml_string, Loader=yaml.FullLoader)
         self.log('=====kbase.yaml parse:')
         self.log(pprint.pformat(self.kb_yaml))
         self.log('=====end kbase.yaml')

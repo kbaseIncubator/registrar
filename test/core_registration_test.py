@@ -127,8 +127,7 @@ class CoreRegistrationTest(unittest.TestCase):
         self.assertEqual(info['dev']['narrative_methods'], ['test_method_1'])
         self.assertEqual(info['dev']['version'], '0.0.1')
         self.assertEqual(info['dev']['timestamp'], timestamp)
-        self.assertEqual(info['dev']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(info['dev']['docker_img_name'], githash)
 
         # the method should appear in the NMS under the dev tag
         method_list = self.nms.list_methods({'tag': 'dev'})
@@ -183,8 +182,7 @@ class CoreRegistrationTest(unittest.TestCase):
         self.assertEqual(info['dev']['version'], '0.0.1')
         self.assertEqual(info['dev']['timestamp'], timestamp)
 
-        self.assertEqual(info['beta']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(info['beta']['docker_img_name'], githash)
         self.assertEqual(info['beta']['git_commit_hash'], githash)
         self.assertEqual(info['beta']['git_commit_message'], 'added some basic things')
         self.assertEqual(info['beta']['narrative_methods'], ['test_method_1'])
@@ -278,16 +276,14 @@ class CoreRegistrationTest(unittest.TestCase):
         self.assertEqual(info['dev']['narrative_methods'], ['test_method_1'])
         self.assertEqual(info['dev']['version'], '0.0.1')
         self.assertEqual(info['dev']['timestamp'], timestamp)
-        self.assertEqual(info['dev']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(info['dev']['docker_img_name'], githash)
 
         self.assertEqual(info['beta']['git_commit_hash'], githash)
         self.assertEqual(info['beta']['git_commit_message'], 'added some basic things')
         self.assertEqual(info['beta']['narrative_methods'], ['test_method_1'])
         self.assertEqual(info['beta']['version'], '0.0.1')
         self.assertEqual(info['beta']['timestamp'], timestamp)
-        self.assertEqual(info['beta']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(info['beta']['docker_img_name'], githash)
 
         self.assertEqual(info['release']['git_commit_hash'], githash)
         self.assertEqual(info['release']['git_commit_message'], 'added some basic things')
@@ -295,8 +291,7 @@ class CoreRegistrationTest(unittest.TestCase):
         self.assertEqual(info['release']['version'], '0.0.1')
         self.assertEqual(info['release']['timestamp'], timestamp)
         self.assertTrue(info['release']['release_timestamp'] > info['release']['timestamp'])
-        self.assertEqual(info['release']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(info['release']['docker_img_name'], githash)
 
         versions = self.catalog.list_released_module_versions(self.cUtil.anonymous_ctx(),
                                                               {'module_name': module_name})[0]
@@ -307,8 +302,7 @@ class CoreRegistrationTest(unittest.TestCase):
         self.assertEqual(versions[0]['narrative_methods'], ['test_method_1'])
         self.assertEqual(versions[0]['version'], '0.0.1')
         self.assertEqual(versions[0]['timestamp'], timestamp)
-        self.assertEqual(versions[0]['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(versions[0]['docker_img_name'], githash)
 
         # the method should appear in the NMS under the dev/beta/release
         method_list = self.nms.list_methods({'tag': 'dev'})
@@ -361,24 +355,21 @@ class CoreRegistrationTest(unittest.TestCase):
                          sorted(['test_method_1', 'test_method_2']))
         self.assertEqual(info['dev']['version'], '0.0.2')
         self.assertEqual(info['dev']['timestamp'], timestamp2)
-        self.assertEqual(info['dev']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash2)
+        self.assertEqual(info['dev']['docker_img_name'], githash2)
 
         self.assertEqual(info['beta']['git_commit_hash'], githash)
         self.assertEqual(info['beta']['git_commit_message'], 'added some basic things')
         self.assertEqual(info['beta']['narrative_methods'], ['test_method_1'])
         self.assertEqual(info['beta']['version'], '0.0.1')
         self.assertEqual(info['beta']['timestamp'], timestamp)
-        self.assertEqual(info['beta']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(info['beta']['docker_img_name'], githash)
 
         self.assertEqual(info['release']['git_commit_hash'], githash)
         self.assertEqual(info['release']['git_commit_message'], 'added some basic things')
         self.assertEqual(info['release']['narrative_methods'], ['test_method_1'])
         self.assertEqual(info['release']['version'], '0.0.1')
         self.assertEqual(info['release']['timestamp'], timestamp)
-        self.assertEqual(info['release']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash)
+        self.assertEqual(info['release']['docker_img_name'], githash)
 
         # assert fail on request release because you can't update release version if they are the same
         with self.assertRaises(ValueError) as e:
@@ -401,8 +392,7 @@ class CoreRegistrationTest(unittest.TestCase):
         self.assertEqual(info['release']['version'], '0.0.2')
         self.assertEqual(info['release']['timestamp'], timestamp2)
         self.assertTrue(info['release']['release_timestamp'] > timestamp2)
-        self.assertEqual(info['release']['docker_img_name'].split('/')[1],
-                         'kbase:' + module_name.lower() + '.' + githash2)
+        self.assertEqual(info['release']['docker_img_name'], githash2)
 
         # 11) register new version, but with bad version number.  Should fail.  Needs to be a semantic version
         githash3 = '9908c20cd5d275190490d7b852f22e5da73f9260'  # branch simple_good_repo

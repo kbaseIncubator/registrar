@@ -238,6 +238,10 @@ class LocalFunctionReader:
         if 'function_places' not in compilation_report:
             raise ValueError('Invalid compilation report, function_places are missing')
 
+
+        print(f"function_specs is {self.function_specs}")
+        print(f"compilation_report is {compilation_report}")
+
         # 1) compare functions to functions in the compilation report
         for fid in self.function_specs:
             if fid not in compilation_report['functions']:

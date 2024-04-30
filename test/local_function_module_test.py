@@ -30,6 +30,9 @@ class LocalFunctionModuleTest(unittest.TestCase):
             sleep(1)
             state = self.catalog.get_module_state(self.cUtil.anonymous_ctx(),
                                                   {'git_url': giturl})[0]
+            print("*" * 30)
+            print(state)
+            print("*" * 30)
 
             # log line printing:
             parsed_log = self.catalog.get_parsed_build_log(self.cUtil.anonymous_ctx(),
