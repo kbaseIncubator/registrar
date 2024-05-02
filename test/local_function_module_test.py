@@ -59,7 +59,7 @@ class LocalFunctionModuleTest(unittest.TestCase):
         self.assertEqual(len(specs), 1)
         info = specs[0]['info']
         self.assertEqual(info['function_id'], 'powerpoint_to_genome')
-        self.assertEqual(info['git_commit_hash'], 'a01e1a20b9c504a0136c75323b00b1cd4c7f7970')
+        self.assertEqual(info['git_commit_hash'], 'a8915afe6811de9199897d710348befad8f6f7ab')
         self.assertEqual(info['module_name'], 'GenomeToPowerpointConverter')
         self.assertEqual(info['name'], 'Powerpoint to Genome')
         self.assertEqual(info['release_tag'], ['dev'])
