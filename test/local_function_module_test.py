@@ -16,7 +16,7 @@ class LocalFunctionModuleTest(unittest.TestCase):
         # assume test user is already approved as a developer
         # (1) register the test repo
         giturl = self.cUtil.get_test_repo_1()
-        githash = 'a01e1a20b9c504a0136c75323b00b1cd4c7f7970'  # branch local_method_module
+        githash = 'a8915afe6811de9199897d710348befad8f6f7ab'  # branch local_method_module
         registration_id = self.catalog.register_repo(self.cUtil.user_ctx(),
                                                      {'git_url': giturl,
                                                       'git_commit_hash': githash})[0]
