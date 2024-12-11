@@ -44,6 +44,9 @@ class CoreRegistrationTest(unittest.TestCase):
         self.assertEqual(parsed_log['git_url'], giturl)
         self.assertEqual(parsed_log['error_message'], '')
         self.assertIsNotNone(parsed_log['module_name_lc'])
+        print("------------------------------------")
+        print(f"parsed_log['log'] is {parsed_log['log']}")
+        print("------------------------------------")
         self.assertTrue(len(parsed_log['log']) > 0)
 
         # get the log file directly
