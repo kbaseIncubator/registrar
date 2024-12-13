@@ -27,10 +27,10 @@ jobs:
             mongo-version: '7.0.4'
     services:
       mongo:
-        image: mongo:${{matrix.python-version}}
+        image: mongo:${{matrix.mongo-version}}
         ports:
             - 27017:27017
-        options: --name mongo${{matrix.python-version}}
+        options: --name mongo${{matrix.mongo-version}}
 
     steps:
       - name: Repo checkout
