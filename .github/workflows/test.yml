@@ -47,7 +47,7 @@ jobs:
         shell: bash
         env:
           KBASE_CI_TOKEN: ${{ secrets.KBASE_CI_TOKEN }}
-          ADMIN_USER: kbase_bot
+          ADMIN_USER: ${{ secrets.KBASE_BOT_USER_CI }}
 
         run: |
 
