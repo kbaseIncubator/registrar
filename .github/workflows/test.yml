@@ -23,8 +23,8 @@ jobs:
         include:
           - python-version: '3.7'
             mongo-version: '3.6'
-          # - python-version: '3.7'
-          #   mongo-version: '7.0.4'
+          - python-version: '3.7'
+            mongo-version: '7.0.4'
     services:
       mongo:
         image: mongo:${{matrix.mongo-version}}
