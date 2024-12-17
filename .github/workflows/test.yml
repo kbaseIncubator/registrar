@@ -64,7 +64,7 @@ jobs:
 
           # setup kb-sdk
           mkdir -p $(pwd)/bin
-          docker run kbase/kb-sdk genscript > $(pwd)/bin/kb-sdk
+          docker run ghcr.io/kbase/kb_sdk_patch-develop:br-0.0.4 genscript > $(pwd)/bin/kb-sdk
           chmod 755 $(pwd)/bin/kb-sdk
           export PATH=$(pwd)/bin:$PATH
 
