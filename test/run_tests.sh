@@ -11,7 +11,10 @@
 # start the test NMS endpoint
 echo 'Starting NMS...'
 export KB_DEPLOYMENT_CONFIG=test.cfg
-classpath=`cat ../narrative_method_store/dist/jar.classpath.txt`
+
+cat ../narrative_method_store/jar.classpath.txt
+
+classpath=`cat ../narrative_method_store/jar.classpath.txt`
 java -cp $classpath us.kbase.narrativemethodstore.NarrativeMethodStoreServer 7125 > nms/error.log 2>&1 &
 NMS_PID=$!
 
