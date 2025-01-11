@@ -29,7 +29,7 @@ jobs:
       mongo:
         image: mongo:${{matrix.mongo-version}}
         ports:
-            - 27017:27017
+            - 27018:27018
         options: --name mongo${{matrix.mongo-version}}
 
     steps:
