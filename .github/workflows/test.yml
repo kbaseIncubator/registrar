@@ -58,7 +58,7 @@ jobs:
         run: |
 
           # test mongo connection
-          curl http://localhost:27017
+          curl http://localhost:27018
           returncode=$?
           if [ $returncode != 0 ]; then exit $returncode; fi
 
