@@ -11,11 +11,7 @@
 # start the test NMS endpoint
 echo 'Starting NMS...'
 export KB_DEPLOYMENT_CONFIG=test.cfg
-
-cat ../narrative_method_store/jar.classpath.txt
-
-classpath=`cat ../narrative_method_store/jar.classpath.txt`
-java -cp $classpath us.kbase.narrativemethodstore.NarrativeMethodStoreServer 7125 > nms/error.log 2>&1 &
+docker-compose -f docker-compose_nms.yml up -d
 NMS_PID=$!
 
 echo 'Starting Mock Auth API...'
@@ -65,5 +61,6 @@ kill -9 $NMS_PID
 #stop Docker containers
 docker stop mock-auth
 docker stop registry
+docker-compose -f docker-compose_nms.yml down
 
 exit ${TEST_RETURN_CODE}

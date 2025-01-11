@@ -103,7 +103,6 @@ setup-tests:
 	mkdir -p $(TESTDIR)/nms
 	rsync -av lib/biokbase/* $(TESTLIB)/biokbase/. --exclude *.bak-*
 	rsync -av kbapi_common/lib/biokbase/* $(TESTLIB)/biokbase/.
-	cd narrative_method_store; gradle generateClasspathFile
 #	cd narrative_method_store; make; make build-classpath-list;
 #	rsync -av narrative_method_store/lib/biokbase/* $(TESTLIB)/biokbase/.
 
