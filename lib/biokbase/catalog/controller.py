@@ -1216,6 +1216,10 @@ class CatalogController:
     @log
     def is_admin(self, username, token):
         logging.info("URL:" + self.auth_api + '/api/V2/me')
+        print("------------------------------")
+        print(f"username is {username}")
+        print(f"token is {token}")
+        print("------------------------------")
         r = requests.get(self.auth_api + '/api/V2/me', headers={'Authorization': token})
         logging.info(r.json())
         roles = r.json().get('customroles', [])

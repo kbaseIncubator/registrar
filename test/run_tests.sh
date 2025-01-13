@@ -19,7 +19,7 @@ docker run -d --rm -v ${PWD}/mock_auth:/config -p 7777:5000 --name mock-auth moc
 
 echo 'Waiting for NMS to start...'
 sleep 25
-curl -d '{"id":"1","params":[],"method":"NarrativeMethodStore.ver","version":"1.1"}' http://localhost:7125
+curl -d '{"id":"1","params":[],"method":"NarrativeMethodStore.ver","version":"1.1"}' http://localhost:7125/rpc
 if [ $? -ne 0 ]; then
     kill -9 $NMS_PID
     echo 'NMS did not startup in time.  Fail.'
