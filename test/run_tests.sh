@@ -56,11 +56,10 @@ echo "unit tests returned with error code=${TEST_RETURN_CODE}"
 ####  SHUTDOWN stuff and exit
 
 # stop NMS
-kill -9 $NMS_PID
+docker-compose -f docker-compose_nms.yml down
 
 #stop Docker containers
 docker stop mock-auth
 docker stop registry
-docker-compose -f docker-compose_nms.yml down
 
 exit ${TEST_RETURN_CODE}
