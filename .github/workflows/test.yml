@@ -21,15 +21,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - python-version: '3.7'
+          - python-version: '3.9.19'
             mongo-version: '3.6'
-          # - python-version: '3.7'
-          #   mongo-version: '7.0.4'
+          - python-version: '3.9.19'
+            mongo-version: '7.0.4'
     services:
       mongo:
         image: mongo:${{matrix.mongo-version}}
         ports:
-            - 27017:27017
+            - 27018:27017
         options: --name mongo${{matrix.mongo-version}}
 
     steps:
@@ -43,6 +43,12 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
 
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.32.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       - name: Install dependencies and set up test config
         shell: bash
         env:
@@ -52,7 +58,7 @@ jobs:
         run: |
 
           # test mongo connection
-          curl http://localhost:27017
+          curl http://localhost:27018
           returncode=$?
           if [ $returncode != 0 ]; then exit $returncode; fi
 
@@ -76,6 +82,10 @@ jobs:
           cp -n test/test.cfg.example test/test.cfg
           sed -i "s#^nms-admin-token.*#nms-admin-token=$KBASE_CI_TOKEN#" test/test.cfg
           sed -i "s#^method-spec-admin-users.*#method-spec-admin-users=$ADMIN_USER#" test/test.cfg
+
+          # setup env variables in docker-compose_nms.yml file
+          echo "ADMIN_USER=$ADMIN_USER"
+          echo "ADMIN_USER=$ADMIN_USER" >> $GITHUB_ENV
 
       - name: Run tests
         shell: bash
