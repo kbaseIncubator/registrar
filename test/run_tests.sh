@@ -15,7 +15,7 @@ docker-compose -f docker-compose_nms.yml up -d
 NMS_PID=$!
 
 echo 'Starting Mock Auth API...'
-docker run -d --rm -v ${PWD}/mock_auth:/config -p 7777:5000 --name mock-auth mockservices/mock_json_service
+docker run -d --rm -v ${PWD}/mock_auth:/config -v ${PWD}/mock_auth/server.py:/server/server.py -p 7777:5000 --name mock-auth mockservices/mock_json_service
 
 echo 'Waiting for NMS to start...'
 sleep 25
